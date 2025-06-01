@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Age calculator app</title>
+
+  <style>
+    *,
+    *::after,
+    *::before {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: Poppins;
+      src: url(/assets/fonts/Poppins-Bold.ttf) format("truetype"),
+        url(/assets/fonts/Poppins-BoldItalic.ttf) format("truetype"),
+        url(/assets/fonts/Poppins-ExtraBold.ttf) format("truetype"),
+        url(/assets/fonts/Poppins-ExtraBoldItalic.ttf) format("truetype"),
+        url(/assets/fonts/Poppins-Italic.ttf) format("truetype"),
+        url(/assets/fonts/Poppins-Regular.ttf) format("truetype");
+    }
+
+    :root {
+      --Purple-500: hsl(259, 100%, 65%);
+      --Red-400: hsl(0, 100%, 67%);
+      --White: hsl(0, 100%, 100%);
+      --Grey-100: hsl(0, 0%, 94%);
+      --Grey-200: hsl(0, 0%, 86%);
+      --Grey-500: hsl(0, 1%, 44%);
+      --Black: hsl(0, 0%, 0%);
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: var(--Grey-100);
+
+    }
+
+    .container {
+      width: 1000px;
+      height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--White);
+      border-radius: 1.7rem 1.7rem 20rem 1.7rem;
+    }
+
+    .content {
+      width: 80%;
+      height: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+
+    .date {
+      height: 35%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+    }
+
+    .date-content {
+      height: 70%;
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .day,
+    .month,
+    .year {
+      height: 100%;
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    .display-age {
+      height: 65%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      font-style: italic;
+      font-weight: 900;
+    }
+
+    .divider {
+      width: 100%;
+      background: var(--Grey-100);
+      position: relative;
+      height: 1px;
+    }
+
+    .arrow {
+      position: absolute;
+      background: var(--Purple-500);
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+      transition: background 0.3s ease;
+    }
+
+    .arrow:hover {
+      background: var(--Black);
+    }
+
+    .arrow-icon {
+      width: 100%;
+      height: 100%;
+    }
+
+    .eyebrow {
+      height: 10%;
+      text-transform: uppercase;
+      font-size: 1.1em;
+      font-weight: 400;
+      letter-spacing: 5px;
+      color: var(--Grey-500);
+    }
+
+    .input {
+      height: 60%;
+      border-radius: 0.7rem;
+      border: 1px solid var(--Grey-100);
+      font-size: 2rem;
+      width: 80%;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--Black);
+      font-weight: 500;
+      transition: border 0.3s ease;
+      text-indent: -25%;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .input:hover {
+      border: 1px solid var(--Black);
+    }
+
+    .warning {
+      height: 10%;
+      color: var(--Red-400);
+    }
+
+    .display-content {
+      width: 80%;
+      height: 80%;
+    }
+
+    .years,
+    .months,
+    .days {
+      width: 100%;
+      height: 32%;
+      font-size: 7rem;
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      letter-spacing: 30%;
+    }
+
+    .alt {
+      color: var(--Purple-500);
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="content">
+      <div class="date">
+        <div class="date-content">
+          <div class="day">
+            <p class="eyebrow" id="day-eyebrow">
+              day
+            </p>
+            <input type="text" class="input" name="day" id="b-day" placeholder="DD">
+            <p class="warning" id="day-warning"></p>
+          </div>
+          <div class="month">
+            <p class="eyebrow" id="month-eyebrow">
+              month
+            </p>
+            <input type="text" class="input" name="day" id="b-month" placeholder="MM">
+            <p class="warning" id="month-warning"></p>
+          </div>
+
+          <div class="year">
+            <p class="eyebrow" id="year-eyebrow">
+              year
+            </p>
+            <input type="text" class="input" name="day" id="b-year" placeholder="YYYY">
+            <p class="warning" id="year-warning"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider">
+        <div class="arrow">
+          <span>
+            <img src="/assets/images/icon-arrow.svg" alt="directioal-arrow" class="arrow-icon">
+          </span>
+        </div>
+      </div>
+
+      <div class="display-age">
+        <div class="display-content">
+          <div class="years">
+            <span class="alt" id="years-display">--</span> years
+          </div>
+          <div class="months">
+            <span class="alt" id="months-display">--</span> months
+          </div>
+          <div class="days">
+            <span class="alt" id="days-display">--</span> days
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+  <script>
+
+const arrow = document.querySelector(".arrow");
+const currentDate = new Date();
+const currentDay = currentDate.getDate();
+const currentMonth = currentDate.getMonth() + 1;
+const currentYear = currentDate.getFullYear();
+
+const dayInput = document.querySelector("#b-day");
+const monthInput = document.querySelector("#b-month");
+const yearInput = document.querySelector("#b-year");
+
+const dayWarning = document.querySelector("#day-warning");
+const monthWarning = document.querySelector("#month-warning");
+const yearWarning = document.querySelector("#year-warning");
+
+const dayEyebrow = document.querySelector("#day-eyebrow");
+const monthEyebrow = document.querySelector("#month-eyebrow");
+const yearEyebrow = document.querySelector("#year-eyebrow");
+
+const yearDisplay = document.querySelector("#years-display");
+const monthDisplay = document.querySelector("#months-display");
+const dayDisplay = document.querySelector("#days-display");
+
+const validateDate = (day, month, year) => {
+  if (day < 1 || day > 31 || month < 1 || month > 12 || year > currentYear) {
+    return false;
+  }
+  return true;
+};
+
+const calculateAge = () => {
+  resetStyles();
+  const dayValue = parseInt(dayInput.value);
+  const monthValue = parseInt(monthInput.value);
+  const yearValue = parseInt(yearInput.value);
+
+  if (!dayInput.value || !monthInput.value || !yearInput.value) {
+    if (!dayInput.value) dayWarning.textContent = "This field is required";
+    if (!monthInput.value) monthWarning.textContent = "This field is required";
+    if (!yearInput.value) yearWarning.textContent = "This field is required";
+    setErrorStylesForInvalidFields(dayWarning.textContent, monthWarning.textContent, yearWarning.textContent);
+    return;
+  }
+
+
+  if (isNaN(dayValue) || isNaN(monthValue) || isNaN(yearValue)) {
+    if (isNaN(dayValue)) dayWarning.textContent = "Invalid date";
+    if (isNaN(monthValue)) monthWarning.textContent = "Invalid date";
+    if (isNaN(yearValue)) yearWarning.textContent = "Invalid date";
+    setErrorStylesForInvalidFields(dayWarning.textContent, monthWarning.textContent, yearWarning.textContent);
+    return;
+  }
+
+
+
+  if (dayValue < 1 || dayValue > 31) dayWarning.textContent = "Must be a valid date";
+  if (monthValue < 1 || monthValue > 12) monthWarning.textContent = "Must be a valid date";
+  if (yearValue > currentYear) yearWarning.textContent = "Must be in the past";
+
+  if (dayWarning.textContent || monthWarning.textContent || yearWarning.textContent) {
+    setErrorStylesForInvalidFields(dayWarning.textContent, monthWarning.textContent, yearWarning.textContent);
+    return;
+  }
+
+      const age = currentYear - yearValue;
+      let monthDiff = currentMonth - monthValue;
+      let dayDiff = currentDay - dayValue;
+
+      if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        monthDiff += 12;
+        age--;
+        if (dayDiff < 0) {
+          monthDiff--;
+          dayDiff += new Date(yearValue + age, monthValue, 0).getDate();
+        }
+      }
+
+      if (dayDiff < 0) {
+        monthDiff--;
+        dayDiff += new Date(yearValue + age, monthValue + monthDiff, 0).getDate();
+      }
+
+      yearDisplay.textContent = age;
+      monthDisplay.textContent = monthDiff;
+      dayDisplay.textContent = dayDiff;
+      resetStyles();
+    };
+
+    const setErrorStylesForInvalidFields = (dayWarningText, monthWarningText, yearWarningText) => {
+      if (dayWarningText) {
+        dayEyebrow.style.color = "red";
+        dayInput.style.borderColor = "red";
+      }
+      if (monthWarningText) {
+        monthEyebrow.style.color = "red";
+        monthInput.style.borderColor = "red";
+      }
+      if (yearWarningText) {
+        yearEyebrow.style.color = "red";
+        yearInput.style.borderColor = "red";
+      }
+    };
+
+
+const setErrorStyles = () => {
+  dayEyebrow.style.color = "red";
+  monthEyebrow.style.color = "red";
+  yearEyebrow.style.color = "red";
+  dayInput.style.borderColor = "red";
+  monthInput.style.borderColor = "red";
+  yearInput.style.borderColor = "red";
+};
+
+const resetStyles = () => {
+  dayWarning.textContent = "";
+  monthWarning.textContent = "";
+  yearWarning.textContent = "";
+  dayEyebrow.style.color = "";
+  monthEyebrow.style.color = "";
+  yearEyebrow.style.color = "";
+  dayInput.style.borderColor = "";
+  monthInput.style.borderColor = "";
+  yearInput.style.borderColor = "";
+};
+
+arrow.addEventListener("click", calculateAge);
+
+
+  </script>
+</body>
+
+</html>
